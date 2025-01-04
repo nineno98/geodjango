@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index_test</title>
+</head>
+<body>
+    <h1>Index - teszt oldal</h1>
+    <form action="/geojson/territories_upload_POST/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">Válaszd ki a GeoJSON fájlt!</label>
+        <input type="file" name="file" id="">
+        <input type="submit">
+    </form>
+</body>
+</html>
