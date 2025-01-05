@@ -19,25 +19,14 @@ class Esemeny(models.Model):
     name = models.CharField(max_length=255)
     idopont = models.IntegerField()
     leiras = models.TextField()
+    kep = models.ImageField(upload_to='test_geojson_store/files/uploads/esemenyek/', null=True)
     geometry = models.TextField()
 
 
 
 class FileUpload(models.Model):
     
-    fs = FileSystemStorage(location="files/uploads")
+    
 
-    file = models.FileField(storage=fs)
-    def save(self, *args, **kwargs):
-        geojson_file = json.load(self.file)
-        json_array = geojson_file["features"]
-        for item in json_array:
-            Territorie.objects.create(
-                name=item["properties"]["name"],
-                start_date=int(item["properties"]["start_date"]),
-                end_date=int(item["properties"]["end_date"]),
-                color=item["properties"]["color"],
-                geometry=item["geometry"]["coordinates"]
-            )
-        #print(geojson_file["features"][0])
-        return super(FileUpload, self).save(*args, **kwargs)
+    file = models.FileField(upload_to='files/uploads/')
+    
