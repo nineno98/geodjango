@@ -1,9 +1,23 @@
 from django.db import models
 from django.core.files.storage import FileSystemStorage
 import json
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+class CustomUser(AbstractUser):
+    tanar = models.BooleanField(default=False)
+    tanulo = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.username+' '+self.first_name
+
+class CustomPolygon(models.Model):
+    id = models.IntegerField(blank=False, auto_created=True, primary_key=True)
+    name = models.CharField( max_length=255)
+    geometry = models.TextField()
+    leiras = models.TextField()
+    letrehozo = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 
 class Territorie(models.Model):
