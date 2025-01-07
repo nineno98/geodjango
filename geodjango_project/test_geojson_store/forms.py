@@ -2,6 +2,12 @@ from django import forms
 from .models import Territorie
 import json
 
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length = 30, label="Felhasználónév")
+    password = forms.CharField(max_length = 30, label="Jelszó", widget= forms.PasswordInput)
+
+
 class EsemenyImportForm(forms.Form):
     file = forms.FileField()
 

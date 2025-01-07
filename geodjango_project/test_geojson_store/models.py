@@ -9,6 +9,10 @@ class CustomUser(AbstractUser):
     tanar = models.BooleanField(default=False)
     tanulo = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = "Custom User"
+        verbose_name_plural = "Custom Users"
+
     def __str__(self):
         return self.username+' '+self.first_name
 

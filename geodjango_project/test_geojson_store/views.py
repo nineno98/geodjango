@@ -1,10 +1,12 @@
-from django.shortcuts import render
-from .forms import TerritorieImportForm
+from django.shortcuts import render, redirect
+from .forms import TerritorieImportForm, LoginForm
 from .models import Territorie
 import json
 from django.http.response import JsonResponse, HttpResponse
 from .serializer import TerritorieSerializer
 from rest_framework.decorators import api_view
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def ImportTerritoriesFromJson(request):
@@ -52,3 +54,17 @@ def get_TerritoriesAPI(request):
     territories = Territorie.objects.all()
     serialized = TerritorieSerializer(territories, many= True)
     return JsonResponse(serialized.data, safe=False)
+
+@login_required
+def get_home(request):
+    return render(request, 'home.html')
+
+def login_test(request):
+    loginForm = LoginForm(request.POST)
+    if loginForm.is_valid:
+        username = loginForm.cleaned_data['username']
+        password = loginForm.cleaned_data['password']
+
+        user = authenticate(request, username=username, password=password)
+        login(request, user)
+        redirect('home')
