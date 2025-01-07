@@ -5,7 +5,7 @@ import json
 from django.http.response import JsonResponse, HttpResponse
 from .serializer import TerritorieSerializer
 from rest_framework.decorators import api_view
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -57,14 +57,28 @@ def get_TerritoriesAPI(request):
 
 @login_required
 def get_home(request):
-    return render(request, 'home.html')
+    user = request.user.tanar
+    print(user)
+    return render(request, 'home.html', {'user_status':user})
 
-def login_test(request):
-    loginForm = LoginForm(request.POST)
-    if loginForm.is_valid:
-        username = loginForm.cleaned_data['username']
-        password = loginForm.cleaned_data['password']
+def bejelentkezes(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect('home')
+        form = LoginForm()
+        return render(request, 'login.html', {'form':form})
+    elif request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            login(request, user=user)
+            return redirect('home')
+        form = LoginForm(request.POST)
+        return render(request, 'login.html', {'form':form})
 
-        user = authenticate(request, username=username, password=password)
-        login(request, user)
-        redirect('home')
+def kijelentkezes(request):
+    logout(request)
+    return redirect('login')
+

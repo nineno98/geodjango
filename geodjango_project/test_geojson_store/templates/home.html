@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p>Home!!!</p>
+    {{ user_status }}
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Kijelentkezés</button>
+    </form>
 </body>
 </html>

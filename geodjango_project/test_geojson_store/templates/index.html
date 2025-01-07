@@ -14,6 +14,15 @@
         <input type="submit">
     </form>
     <p>Bejelentkezes</p>
-    
+    <form action="/geojson/login_test/" method="post">
+        {% csrf_token %}
+        <label for="text">Jelszó:</label>
+        <input type="text" name="username">
+        
+        <label for="text">Jelszó</label>
+        <input type="text" name="password" id="">
+        
+        <input type="submit" value="">
+    </form>
 </body>
 </html>
