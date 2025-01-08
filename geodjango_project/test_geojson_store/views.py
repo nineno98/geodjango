@@ -7,6 +7,7 @@ from .serializer import TerritorieSerializer
 from rest_framework.decorators import api_view
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+import openpyxl
 
 # Create your views here.
 def ImportTerritoriesFromJson(request):
@@ -16,17 +17,6 @@ def ImportTerritoriesFromJson(request):
             uploaded = request.FILES['file']
             try:   
                 form.save()
-                '''
-                geojson_file = json.load(uploaded)
-                json_array = geojson_file["features"]
-                for item in json_array:
-                    Territorie.objects.create(
-                        name=item["properties"]["name"],
-                        start_date=int(item["properties"]["start_date"]),
-                        end_date=int(item["properties"]["end_date"]),
-                        color=item["properties"]["color"],
-                        geometry=item["geometry"]["coordinates"])
-                return render(request, "upload_json.html", {"form" : form})'''
             except Exception as e:
                 print("try->exception: "+str(e))
                 return render(request, "upload_json.html", {"form" : form})
@@ -57,9 +47,9 @@ def get_TerritoriesAPI(request):
 
 @login_required
 def get_home(request):
-    user = request.user.tanar
+    user = request.user
     print(user)
-    return render(request, 'home.html', {'user_status':user})
+    return render(request, 'home.html', {'user':user})
 
 def bejelentkezes(request):
     if request.method == 'GET':

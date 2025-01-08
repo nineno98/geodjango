@@ -1,13 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <title>Document</title>
 </head>
 <body>
-    <p>Home!!!</p>
-    {{ user_status }}
+    <div class="wrapper">
+        <div class="header">
+            <a href="" class="logo">
+                <img src="" alt="">
+            </a>
+            <div class="username">
+                <span>{{ user.last_name }}</span>
+                <span>{{ user.first_name }}</span>
+            </div>
+            <div class="main-menu-container">
+                <div id="nav-top">
+                    <a class="nav-item" href="{% url 'home' %}">Térkép</a>
+                    <a class="nav-item" href="">Ellenőrző kérdések</a>
+                    {% if user.tanar == True %}
+                        <a class="nav-item" href="">Importálás</a>
+                        <a class="nav-item" href="">Exportálás</a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        <div id="map_canvas" class="map-container">
+
+        </div>
+    </div>
 
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}

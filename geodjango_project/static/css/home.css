@@ -1,0 +1,33 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.wrapper{
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header{
+    height: 50px;
+    background: grey;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    z-index: 200;
+    direction: ltr;
+}
+
+.username{
+    display: inline-block;
+    border: 1px solid black;
+}
+.username > span{
+    display: block;
+}
+.main-menu-container{
+    display: inline-block;
+}
+.nav-item{
+    display: inline-block;
+}
